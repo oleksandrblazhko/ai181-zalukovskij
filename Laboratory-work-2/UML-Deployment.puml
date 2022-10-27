@@ -1,0 +1,53 @@
+@startuml
+title UML-діаграма розгортання ПП
+
+left to right direction
+
+skinparam componentStyle uml1
+
+node "<<iPhone>>" {
+    node "<<Operating System iOS>>" {
+        node "<<Application>>" {
+            component [*UI] as ui
+            component [*Trips Module] as tripsModule
+            component [*Trip Module] as tripModule
+            component [*Add/edit trip Module] as addEditTripModule
+            component [*Add/edit plan Module] as addEditPlanModule
+            component [*Add/edit spending Module] as addEditSpendingModule
+            component [*Database Service] as databaseService
+            component [*Tickets Search filter Module] as ticketsSearchFilterModule
+            component [*City search Service] as citySearchService
+            component [*Tickets Module] as ticketsModule
+            component [*Tickets Service] as ticketsService
+        }
+
+        node "<<Database Server>>" {
+            database Realm as realm
+        }
+    }
+}
+
+node "<<Tequila API>>" as tequilaAPI
+
+ui --> tripsModule
+ui --> tripModule
+ui --> addEditTripModule
+ui --> addEditPlanModule
+ui --> addEditSpendingModule
+ui --> ticketsSearchFilterModule
+ui --> ticketsModule
+
+tripsModule --> databaseService
+tripModule --> databaseService
+addEditTripModule --> databaseService
+addEditPlanModule --> databaseService
+addEditSpendingModule --> databaseService
+
+databaseService --> realm
+
+ticketsSearchFilterModule --> citySearchService
+ticketsModule --> ticketsService
+
+citySearchService --> tequilaAPI
+ticketsService --> tequilaAPI
+@enduml
